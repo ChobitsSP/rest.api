@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace WebApp
@@ -10,6 +11,11 @@ namespace WebApp
     /// </summary>
     public class TopHandler : Rest.Api.TopHandler
     {
-
+        protected override Type GetParamsRequest(string method)
+        {
+            string ns = this.GetType().Namespace;
+            Type type = Assembly.Load(ns).GetType(ns + ".Api." + method, false, true);
+            return type;
+        }
     }
 }
