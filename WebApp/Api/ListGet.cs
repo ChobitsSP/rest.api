@@ -11,7 +11,11 @@ namespace WebApp.Api
     {
         public TopResponse GetResponse(NameValueCollection parameters)
         {
-            return new JsonResponse();
+            return new ResultResponse(new
+            {
+                array = new int[] { 1, 2, 3 },
+                total_result = 10,
+            });
         }
     }
 }

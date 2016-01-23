@@ -43,4 +43,15 @@ namespace Rest.Api
         [JsonProperty("result")]
         public T Result { get; set; }
     }
+
+    public class ResultResponse : JsonResponse
+    {
+        public ResultResponse(object obj)
+        {
+            this.Result = obj;
+        }
+
+        [JsonProperty("result")]
+        public object Result { get; set; }
+    }
 }
