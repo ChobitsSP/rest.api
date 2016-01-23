@@ -54,6 +54,7 @@
     <Compile Include="TopException.cs" />
     <Compile Include="TopHandler.cs" />
     <Compile Include="Util\RequestUtils.cs" />
+    <Compile Include="Util\RequestValidator.cs" />
     <Compile Include="Util\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
