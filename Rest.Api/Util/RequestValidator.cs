@@ -201,5 +201,21 @@ namespace Rest.Api.Util
                 throw new TopException(ERR_CODE_PARAM_INVALID, string.Format(ERR_MSG_PARAM_INVALID, name));
             }
         }
+
+        /// <summary>
+        /// 验证日期。
+        /// </summary>
+        /// <param name="name">参数名</param>
+        /// <param name="value">参数值</param>
+        /// <param name="minValue">最小值</param>
+        public static DateTime ValidateDateTime(this NameValueCollection parameters, string name)
+        {
+            var dt = parameters[name].ToDateTime();
+            if (!dt.HasValue)
+            {
+                throw new TopException(ERR_CODE_PARAM_INVALID, string.Format(ERR_MSG_PARAM_INVALID, name));
+            }
+            return dt.Value;
+        }
     }
 }
