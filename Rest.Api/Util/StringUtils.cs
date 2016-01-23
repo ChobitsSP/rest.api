@@ -34,6 +34,18 @@ namespace Rest.Api.Util
             return json;
         }
 
+        public static string[] SplitString(this string str, char chr = ',')
+        {
+            string[] array = new string[0];
+
+            if (!string.IsNullOrEmpty(str))
+            {
+                array = str.Split(new[] { chr });
+            }
+
+            return array;
+        }
+
         public static IEnumerable<int> SplitIntDistinct(this string str, int count, char chr = ',')
         {
             IEnumerable<int> array = new int[0];
