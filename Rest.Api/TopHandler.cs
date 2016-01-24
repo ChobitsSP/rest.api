@@ -1,5 +1,6 @@
 ﻿using Rest.Api.Util;
 using System;
+using System.IO;
 using System.Web;
 using System.Web.SessionState;
 
@@ -12,14 +13,14 @@ namespace Rest.Api
             var request = context.Request;
             string method = request.QueryString["method"];
             //string format = context.Request.QueryString["format"] ?? "json";
-            var parameters = request.HttpMethod.ToUpper() == "GET" ? request.QueryString : request.Form;
 
             string body;
 
             try
             {
                 var type = GetParamsRequest(method);
-                body = parameters.GetJsonResponse(type);
+                var rsp = request.GetTopResponse(type);
+                body = rsp.ToJson();
             }
             catch (TopException ex)
             {
