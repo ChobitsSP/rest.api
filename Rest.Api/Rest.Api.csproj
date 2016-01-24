@@ -49,6 +49,7 @@
     <Compile Include="Util\RequestUtils.cs" />
     <Compile Include="Util\RequestValidator.cs" />
     <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\WebUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

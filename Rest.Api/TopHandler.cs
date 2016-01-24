@@ -2,11 +2,10 @@
 using System;
 using System.IO;
 using System.Web;
-using System.Web.SessionState;
 
 namespace Rest.Api
 {
-    public abstract class TopHandler : IHttpHandler, IRequiresSessionState
+    public abstract class TopHandler : IHttpHandler
     {
         public void ProcessRequest(HttpContext context)
         {
