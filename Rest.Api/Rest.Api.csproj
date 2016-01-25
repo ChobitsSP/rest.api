@@ -46,6 +46,7 @@
     <Compile Include="Response\TopResponse.cs" />
     <Compile Include="TopException.cs" />
     <Compile Include="TopHandler.cs" />
+    <Compile Include="Util\FileLogger.cs" />
     <Compile Include="Util\RequestUtils.cs" />
     <Compile Include="Util\RequestValidator.cs" />
     <Compile Include="Util\StringUtils.cs" />
