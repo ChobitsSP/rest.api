@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Text;
 
 namespace Rest.Api.Util
 {
@@ -25,6 +26,11 @@ namespace Rest.Api.Util
 
         #region interface  
 
+        public void Error(Exception exception)
+        {
+            Trace.WriteLine(FlattenException(exception), DateTime.Now.ToString(DATETIME_FORMAT) + " ERROR");
+        }
+
         public void Error(string message)
         {
             Trace.WriteLine(message, DateTime.Now.ToString(DATETIME_FORMAT) + " ERROR");
@@ -42,5 +48,19 @@ namespace Rest.Api.Util
 
         #endregion
 
+        public static string FlattenException(Exception exception)
+        {
+            var stringBuilder = new StringBuilder();
+
+            while (exception != null)
+            {
+                stringBuilder.AppendLine(exception.Message);
+                stringBuilder.AppendLine(exception.StackTrace);
+
+                exception = exception.InnerException;
+            }
+
+            return stringBuilder.ToString();
+        }
     }
 }
