@@ -11,6 +11,16 @@ namespace Rest.Api.Util
 {
     public static class RequestUtils
     {
+        public static TopResponse GetTopResponse(this HttpRequest request, IParamsRequest req, ITopCache cache = null)
+        {
+            if (req is IParamsRequest)
+            {
+                var parameters = request.HttpMethod.ToUpper() == "GET" ? request.QueryString : request.Form;
+                return (req as IParamsRequest).GetTopResponse(parameters, null);
+            }
+            throw new TopException(1, "method is null");
+        }
+
         public static TopResponse GetTopResponse(this HttpRequest request, Type type, ITopCache cache = null)
         {
             if (type == null)
@@ -20,17 +30,12 @@ namespace Rest.Api.Util
 
             var req = Activator.CreateInstance(type);
 
-            //if (req is IJsonRequest)
-            //{
-            //    string json = GetInputSteam(request.InputStream);
-            //    dynamic obj = JObject.Parse(json);
-            //}
             if (req is IParamsRequest)
             {
                 var parameters = request.HttpMethod.ToUpper() == "GET" ? request.QueryString : request.Form;
                 return (req as IParamsRequest).GetTopResponse(parameters, null);
             }
-            
+
             return new JsonResponse();
         }
 

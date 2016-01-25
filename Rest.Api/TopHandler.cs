@@ -37,6 +37,7 @@ namespace Rest.Api
             context.Response.End();
         }
 
+        //protected abstract IParamsRequest GetParamsRequest(string method);
         protected abstract Type GetParamsRequest(string method);
         protected virtual void LogException(Exception ex) { }
 
