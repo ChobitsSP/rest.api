@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <base href="/">
+    <style>
+                /* Have to set height explicity on ui-view
+        to prevent collapsing during animation*/
+                .ui-view-container {
+                    position: relative;
+                    height: 65px;
+                }
+
+                [ui-view].ng-enter, [ui-view].ng-leave {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    -webkit-transition: all .5s ease-in-out;
+                    -moz-transition: all .5s ease-in-out;
+                    -o-transition: all .5s ease-in-out;
+                    transition: all .5s ease-in-out;
+                }
+
+                [ui-view].ng-enter {
+                    opacity: 0;
+                    -webkit-transform: scale3d(0.5, 0.5, 0.5);
+                    -moz-transform: scale3d(0.5, 0.5, 0.5);
+                    transform: scale3d(0.5, 0.5, 0.5);
+                }
+
+                [ui-view].ng-enter-active {
+                    opacity: 1;
+                    -webkit-transform: scale3d(1, 1, 1);
+                    -moz-transform: scale3d(1, 1, 1);
+                    transform: scale3d(1, 1, 1);
+                }
+
+                [ui-view].ng-leave {
+                    opacity: 1;
+                    -webkit-transform: translate3d(0, 0, 0);
+                    -moz-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                }
+
+                [ui-view].ng-leave-active {
+                    opacity: 0;
+                    -webkit-transform: translate3d(100px, 0, 0);
+                    -moz-transform: translate3d(100px, 0, 0);
+                    transform: translate3d(100px, 0, 0);
+                }
+    </style>
+</head>
+<body>
+    <div ng-app="app">
+        <div class="row">
+            <div class="span12 ui-view-container">
+                <div class="well" ui-view></div>
+            </div>
+        </div>
+    </div>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.9/angular.js"></script>
+    <script src="http://cdn.bootcss.com/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="js/ng-ajax.js"></script>
+
+    <script>
+        var app = angular.module('app', ['ui.router', 'ng-ajax'])
+
+        app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+            $urlRouterProvider.otherwise("/tab1");
+
+            var template = '<div>tab {{index}}</div>';
+
+            function controller($scope, $state, $ajax) {
+                $scope.index = $state.current.data.index
+
+                $ajax.get('listget', { item: { id: 1, name: 'username' } }, function (rsp) {
+                    console.log(JSON.stringify(rsp.result))
+                })
+            }
+
+            [1, 2, 3, 4].forEach(function (i) {
+                $stateProvider.state('tab' + i, {
+                    url: "/tab" + i,
+                    template: template,
+                    controller: controller,
+                    data: {
+                        index: i,
+                    },
+                })
+            })
+
+            $locationProvider.html5Mode(true)
+        })
+    </script>
+</body>
+</html>

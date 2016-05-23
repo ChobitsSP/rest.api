@@ -210,3 +210,23 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/WebApp/chart/res/iconfont.ttf
+/WebApp/chart/js/zepto.min.js
+/WebApp/chart/js/vue.min.js
+/WebApp/chart/js/good-store.js
+/WebApp/chart/js/fastclick.min.js
+/WebApp/chart/index.html
+/WebApp/chart/img/item_img.png
+/WebApp/chart/css/common.css
+/WebApp/chart/css/checkbox.css
+/WebApp/chart/css/api.css
+/WebApp/chart/3b019b21-f812-436e-a6ec-4d41ecc24cc4.dmp
+/tgbusList/tgbusList.csproj
+/tgbusList/Properties/AssemblyInfo.cs
+/tgbusList/Program.cs
+/tgbusList/packages.config
+/WebApp/Api/dynamic1.cs
+/WebApp/ajax.html
+/Rest.Api/新建文本文档.txt
+/Rest.Api/Rest.Api.nuspec
+/Rest.Api/Rest.Api - 副本.nuspec
