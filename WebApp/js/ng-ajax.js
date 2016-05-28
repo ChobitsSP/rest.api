@@ -15,72 +15,58 @@
             return false
         }
 
+        function deferAjax(config) {
+            var deferred = $q.defer()
+
+            angular.extend(config, {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded;' },
+                transformRequest: transform,
+            })
+
+            $http(config).success(function (data, status, headers, config) {
+                if (ErrBreak(data)) return
+                deferred.resolve(data)
+            }).error(function (data, status, headers, config) {
+                deferred.resolve({ msg: "failed", code: -1 })
+            })
+
+            return deferred.promise
+        }
+
         factory.get = function (method, data, callback) {
-            $http({
+            var promise = deferAjax({
                 method: 'GET',
                 url: serviceBase + method,
                 params: data,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded;' }
-            }).success(function (data, status, headers, config) {
-                if (ErrBreak(data)) return
-                if (angular.isFunction(callback)) {
-                    callback(data);
-                }
-            }).error(function (data, status, headers, config) {
-                if (angular.isFunction(callback)) {
-                    callback({ msg: "请求失败", code: -1 });
-                }
-            });
-        };
+            })
+
+            if (angular.isFunction(callback)) {
+                promise.then(callback)
+            }
+            else {
+                return promise
+            }
+        }
 
         factory.deferGet = function (method, data) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'GET',
-                cache: false,
-                url: serviceBase + method,
-                params: data,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded;' }
-            }).success(function (data, status, headers, config) {
-                if (ErrBreak(data)) return
-                deferred.resolve(data);
-            }).error(function (data, status, headers, config) {
-                deferred.resolve({ msg: "请求失败", code: -1 });
-            });
-
-            return deferred.promise;
+            return factory.get(method, data)
         }
 
         factory.post = function (method, data, callback) {
-            this.AjaxPostWithNoAuthenication(method, data, function (rsp) {
-                if (ErrBreak(data)) return
-                if (angular.isFunction(callback)) {
-                    callback(rsp);
-                }
-            });
-        };
-
-        factory.AjaxPostWithNoAuthenication = function (method, data, callback) {
-            $http({
+            var promise = deferAjax({
                 method: 'POST',
                 url: serviceBase + method,
                 transformRequest: transform,
                 data: data,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded;' }
-            }).success(function (data, status, headers, config) {
-                if (angular.isFunction(callback)) {
-                    callback(data);
-                }
-            }).error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            })
 
-                if (angular.isFunction(callback)) {
-                    callback({ msg: "请求失败", code: -1 });
-                }
-            });
-        };
+            if (angular.isFunction(callback)) {
+                promise.then(callback)
+            }
+            else {
+                return promise
+            }
+        }
 
         function transform(obj) {
             if (angular.isObject(obj)) {
