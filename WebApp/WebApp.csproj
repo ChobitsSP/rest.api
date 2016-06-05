@@ -61,6 +61,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="js\ng-ajax.js" />
+    <Content Include="js\v-ajax.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

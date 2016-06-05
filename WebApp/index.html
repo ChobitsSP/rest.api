@@ -76,7 +76,7 @@
             function controller($scope, $state, $ajax) {
                 $scope.index = $state.current.data.index
 
-                $ajax.get('listget', { item: { id: 1, name: 'username' } }, function (rsp) {
+                $ajax.post('listget', { item: { id: 1, name: 'username' } }, function (rsp) {
                     console.log(JSON.stringify(rsp.result))
                 })
             }
@@ -95,5 +95,32 @@
             $locationProvider.html5Mode(true)
         })
     </script>
+
+
+    <div id="app">
+        {{item|json}}
+    </div>
+
+    <script src="http://cdn.bootcss.com/vue/1.0.17/vue.min.js"></script>
+    <script src="http://cdn.bootcss.com/vue-strap/1.0.9/vue-strap.min.js"></script>
+    <script src="http://cdn.bootcss.com/vue-resource/0.7.2/vue-resource.min.js"></script>
+    <script>
+        console.log(Promise)
+    </script>
+    <script src="js/v-ajax.js"></script>
+    <script>
+
+        new Vue({
+            el: '#app',
+            ready() {
+                this.$http.post('listget', { item: { id: 1 } }).then(function (rsp) {
+
+                    console.log('vue', rsp.data)
+                });
+            }
+        })
+    </script>
+
+
 </body>
 </html>
